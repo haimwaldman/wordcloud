@@ -1,0 +1,4 @@
+node_modules
+.vscode/launch.json
+public/articlesCloud.json
+src/services/word-cloud/config.json
