@@ -8,7 +8,7 @@ function buildUrl(baseUrl, queryParams) {
   return url.substring(0, url.length - 1);
 }
 
-async function getArticles_api() {
+async function fetchArticlesFromAPI() {
   const BASE_URL = appConfig.dal.BASE_URL;
   let PARAMS = { language: "en", qintitle: "elon musk" };
   let config = {
@@ -43,13 +43,24 @@ async function getArticles_api() {
       .catch((error) => {
         flag = false;
         console.log(error);
+        throw new Error(error.message);
       });
   }
   return results;
 }
 
+async function getArticles() {
+  const results = await fetchArticlesFromAPI();
+  console.log(results.length);
+  if (results.length > 50) {
+    return results;
+  } else {
+    throw new Error("Less than 50 articles about Elon Musk, it's not enough");
+  }
+}
+
 module.exports = {
-  getArticles_api,
+  getArticles,
 };
 // const file1 = require("../data/1.json");
 // const file2 = require("../data/2.json");

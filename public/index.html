@@ -19,8 +19,8 @@
 <script>  
 
 anychart.onDocumentReady(async function() {  
-  var arraysData = await axios.get('./articlesCloud')
-  var data = []
+  await axios.get('./articlesCloud').then(arraysData => {
+    var data = []
   arraysData.data.map(arr =>    
      data.push({"x": arr[0], "value": arr[1]})
     );
@@ -39,6 +39,10 @@ anychart.onDocumentReady(async function() {
   // display the word cloud chart
   chart.container("container");
   chart.draw();
+  })
+  .catch(error => {
+    console.log(error.message)
+  })
 });
 </script>
 </body>
