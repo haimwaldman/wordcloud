@@ -11,11 +11,11 @@ Important Notice:
     }
 }
 ```
-Start the app:
+- Start the app:
 ```sh
 npm start
 ```
-Now open site:
+- Now open site:
 ```sh
 http://localhost:3000/
 ```
