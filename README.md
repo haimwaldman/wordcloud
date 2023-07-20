@@ -15,3 +15,7 @@ Start the app:
 ```sh
 npm start
 ```
+Now open site:
+```sh
+http://localhost:3000/
+```
