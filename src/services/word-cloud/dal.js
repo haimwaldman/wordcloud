@@ -1,5 +1,9 @@
 const axios = require("axios");
 const appConfig = require("./config.json"); // not in git - add manually
+
+const MIN_NUM_OF_ARTICLES = 50;
+const MAX_NUM_OF_ARTICLES = 100;
+
 function buildUrl(baseUrl, queryParams) {
   let url = `${baseUrl}?`;
   Object.keys(queryParams).map((param) => {
@@ -33,7 +37,10 @@ async function fetchArticlesFromAPI() {
             }
           });
         }
-        if (response.data.nextPage === null) {
+        if (
+          response.data.nextPage === null ||
+          results.length > MAX_NUM_OF_ARTICLES // limit the amount of search results to MAX_NUM_OF_ARTICLES
+        ) {
           flag = false;
         } else {
           PARAMS["page"] = response.data.nextPage;
@@ -52,7 +59,7 @@ async function fetchArticlesFromAPI() {
 async function getArticles() {
   const results = await fetchArticlesFromAPI();
   console.log(results.length);
-  if (results.length > 50) {
+  if (results.length > MIN_NUM_OF_ARTICLES) {
     return results;
   } else {
     throw new Error("Less than 50 articles about Elon Musk, it's not enough");
